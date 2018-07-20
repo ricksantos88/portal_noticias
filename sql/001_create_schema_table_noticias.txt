@@ -1,0 +1,13 @@
+CREATE SCHEMA portal_noticias;
+
+CREATE TABLE noticias(
+    id_noticia int not null primary key auto_increment,
+    titulo     varchar(100),
+    noticia    text,
+    data_criacao timestamp default current_timestamp
+);
+
+SELECT * FROM portal_noticias.noticias;
+
+INSERT INTO portal_noticias.noticias (titulo, noticia) VALUES ('titulo noticia', 'conteudo da noticia');
+INSERT INTO portal_noticias.noticias (titulo, noticia) VALUES ('Titulo 2', 'Segunda Noticia');
