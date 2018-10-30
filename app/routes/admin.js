@@ -1,11 +1,11 @@
 module.exports = function(app){
     app.get('/formulario_inclusao_noticia', function (req, res) {
-        res.render('admin/form_add_noticia');
+        var erros = {}
+        res.render('admin/form_add_noticia', {validacao : {}, noticia : {}});
     });
 
     app.post('/noticias/salvar', function (req, res) {
         var noticia = req.body;
-        //console.log('noticia >>> ',noticia);
         
         req.assert('titulo', 'Título é obrigatorio.').notEmpty();
         req.assert('resumo', 'Resumo é obrigatorio.').notEmpty();
@@ -16,12 +16,25 @@ module.exports = function(app){
         req.assert('noticia', 'Notícia é obrigatorio.').notEmpty();
 
         var erros =  req.validationErrors();
-        console.log('ERRORS >>> ',erros);
+        //console.log('ERRORS >>> ',erros);
 
         if (erros) {
-            res.render('admin/form_add_noticia');
+
+            /*
+            var arrErr = [];
+            for (var i = 0; i < erros.length; i++) {
+                console.log(arrErr);
+                console.log(erros[i].msg);
+                arrErr.push(erros[i].msg);
+            }
+            
+            var propsErr = {};
+            Object.assign(propsErr, arrErr);
+            */
+            //res.render("admin/form_add_noticia", propsErr);
+            res.render("admin/form_add_noticia", {validacao : erros, noticia : noticia});
             return;
-        }
+        };
 
         var connection = app.config.dbConnection();
         var noticiasDAO = new app.app.models.NoticiasDAO(connection);

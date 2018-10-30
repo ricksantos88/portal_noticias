@@ -15,7 +15,6 @@ NoticiasDAO.prototype.salvarNoticia = function(noticia, callback) {
     this._connection.query('INSERT INTO noticias SET ?', noticia, callback)
 };
 
-
 module.exports = function() {
     return NoticiasDAO;
 }
